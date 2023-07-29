@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bebas+Neue&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1 class="page-title">Library</h1>
+    </header>
+    <main class="main-container">
+      <button class="button add-button" id="add-book-button">New book</button>
+      <!-- The popup form for adding a new book -->
+      <div id="add-book-form" class="popup">
+        <div class="popup-content">
+          <span class="close-button" id="close-form">&times;</span>
+          <h2>Add New Book</h2>
+          <input type="text" id="title-input" placeholder="Title" required>
+          <input type="text" id="author-input" placeholder="Author" required>
+          <input type="number" id="pages-input" placeholder="Pages" required>
+          <label for="is-read-input">Have you read this book?</label>
+          <input type="checkbox" id="is-read-input">
+          <button id="submit-book-button">Submit</button>
+        </div>
+      </div>
+      <div class="books-grid" id="books-grid">
+      </div>
+    </main>
+    <script src="App.js"></script>
+  </body>
+</html>
