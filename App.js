@@ -20,31 +20,42 @@ Book.prototype.info = function () {
   }`;
 };
 
-function loadBooks(myLibrary){// array
+function updateBooks() {
+  booksHtml = '';
+  loadBooks(myLibrary);
+  const bookContainer = document.getElementById('books-grid');
+  bookContainer.innerHTML = booksHtml;
+}
+
+// Initial loading of books when the page loads
+updateBooks();
+
+function loadBooks(myLibrary) {
+  booksHtml = '';
+
   myLibrary.forEach(book => {
     const bookHTML = `
-    <div class="book-container">
-      <h4>${book.title}</h4>
-      <h4>Author: ${book.author}</h4>
-      <h4>Pages: ${book.pages}</h4>
-      <h4>Status: ${book.isRead ? 'I\'ve read' : 'Not read yet'}</h4>
-      <button class="button remove-button">Remove</button>
-    </div>
-  `;
-  booksHtml += bookHTML;
-  console.log("loadBooks executed")
+      <div class="book-container">
+        <h4>${book.title}</h4>
+        <h4>Author: ${book.author}</h4>
+        <h4>Pages: ${book.pages}</h4>
+        <h4>Status: ${book.isRead ? 'I\'ve read' : 'Not read yet'}</h4>
+        <button class="button remove-button">Remove</button>
+      </div>
+    `;
+    booksHtml += bookHTML;
   });
+
+  // Update the DOM
+  const bookContainer = document.getElementById('books-grid');
+  bookContainer.innerHTML = booksHtml;
 
   // Add a "Remove" button for each book
   const removeButtons = document.querySelectorAll('.remove-button');
   removeButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
       removeBookFromLibrary(index);
-      // Regenerate the HTML and update the DOM after removal
-      booksHtml = '';
-      loadBooks(myLibrary);
-      const bookContainer = document.getElementById('books-grid');
-      bookContainer.innerHTML = booksHtml;
+      updateBooks();
     });
   });
 }
@@ -102,10 +113,7 @@ submitBookButton.addEventListener('click', () => {
   document.getElementById('is-read-input').checked = false;
 
   // Regenerate the HTML and update the DOM
-  booksHtml = '';
-  loadBooks(myLibrary);
-  const bookContainer = document.getElementById('books-grid');
-  bookContainer.innerHTML = booksHtml;
+  updateBooks();
 });
 
 // Add event listener to the "Close" button in the popup form
