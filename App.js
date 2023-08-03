@@ -23,16 +23,12 @@ Book.prototype.info = function () {
 function updateBooks() {
   booksHtml = '';
   loadBooks(myLibrary);
-  const bookContainer = document.getElementById('books-grid');
-  bookContainer.innerHTML = booksHtml;
 }
 
 // Initial loading of books when the page loads
 updateBooks();
 
 function loadBooks(myLibrary) {
-  booksHtml = '';
-
   myLibrary.forEach(book => {
     const bookHTML = `
       <div class="book-container">
@@ -52,7 +48,9 @@ function loadBooks(myLibrary) {
 
   // Add a "Remove" button for each book
   const removeButtons = document.querySelectorAll('.remove-button');
+  console.log(removeButtons);
   removeButtons.forEach((button, index) => {
+    console.log("index is: " + index);
     button.addEventListener('click', () => {
       removeBookFromLibrary(index);
       updateBooks();
@@ -61,12 +59,9 @@ function loadBooks(myLibrary) {
 }
 
 function removeBookFromLibrary(index) {
+  console.log("printing index: " + index);
   myLibrary.splice(index, 1);
 }
-
-const bookContainer = document.getElementById('books-grid');
-loadBooks(myLibrary);
-bookContainer.innerHTML = booksHtml;
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
