@@ -20,11 +20,6 @@ Book.prototype.info = function () {
   }`;
 };
 
-function updateBooks() {
-  booksHtml = '';
-  loadBooks(myLibrary);
-}
-
 // Initial loading of books when the page loads
 updateBooks();
 
