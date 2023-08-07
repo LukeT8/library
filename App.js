@@ -28,60 +28,43 @@ function updateBooks() {
 // Initial loading of books when the page loads
 updateBooks();
 
-function loadBooks(myLibrary) {
-  myLibrary.forEach(book => {
-    const bookHTML = `
-      <div class="book-container">
-        <h4>${book.title}</h4>
-        <h4>Author: ${book.author}</h4>
-        <h4>Pages: ${book.pages}</h4>
-        <h4>Status: ${book.isRead ? 'I\'ve read' : 'Not read yet'}</h4>
-        <button class="button remove-button">Remove</button>
-      </div>
-    `;
-    booksHtml += bookHTML;
-  });
-
-  // Update the DOM
+// Function to regenerate the HTML and update the DOM
+function updateBooks() {
   const bookContainer = document.getElementById('books-grid');
-  bookContainer.innerHTML = booksHtml;
+  bookContainer.textContent = ''; // Clear the existing content
 
-  // Add a "Remove" button for each book
-  const removeButtons = document.querySelectorAll('.remove-button');
-  console.log(removeButtons);
-  removeButtons.forEach((button, index) => {
-    console.log("index is: " + index);
-    button.addEventListener('click', () => {
+  myLibrary.forEach((book, index) => {
+    const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book-container');
+
+    const titleElement = document.createElement('h4');
+    titleElement.textContent = book.title;
+    bookDiv.appendChild(titleElement);
+
+    const authorElement = document.createElement('h4');
+    authorElement.textContent = `Author: ${book.author}`;
+    bookDiv.appendChild(authorElement);
+
+    const pagesElement = document.createElement('h4');
+    pagesElement.textContent = `Pages: ${book.pages}`;
+    bookDiv.appendChild(pagesElement);
+
+    const statusElement = document.createElement('h4');
+    statusElement.textContent = book.isRead ? "I've read" : "Not read yet";
+    bookDiv.appendChild(statusElement);
+
+    const removeButton = document.createElement('button');
+    removeButton.classList.add('button', 'remove-button');
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => {
       removeBookFromLibrary(index);
       updateBooks();
     });
+    bookDiv.appendChild(removeButton);
+
+    bookContainer.appendChild(bookDiv);
   });
 }
-
-function removeBookFromLibrary(index) {
-  console.log("printing index: " + index);
-  myLibrary.splice(index, 1);
-}
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
-// Function to display the form to add a new book
-function showAddBookForm() {
-  const form = document.getElementById('add-book-form');
-  form.style.display = 'block';
-}
-
-// Function to hide the form after submission
-function hideAddBookForm() {
-  const form = document.getElementById('add-book-form');
-  form.style.display = 'none';
-}
-
-// Add event listener to the "Add New Book" button
-const addBookButton = document.getElementById('add-book-button');
-addBookButton.addEventListener('click', showAddBookForm);
 
 // Add event listener to the "Submit" button in the form
 const submitBookButton = document.getElementById('submit-book-button');
@@ -111,6 +94,35 @@ submitBookButton.addEventListener('click', () => {
   updateBooks();
 });
 
+function removeBookFromLibrary(index) {
+  console.log("printing index: " + index);
+  myLibrary.splice(index, 1);
+}
+
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+}
+
+// Function to display the form to add a new book
+function showAddBookForm() {
+  const form = document.getElementById('add-book-form');
+  form.style.display = 'block';
+}
+
+// Function to hide the form after submission
+function hideAddBookForm() {
+  const form = document.getElementById('add-book-form');
+  form.style.display = 'none';
+}
+
+// Add event listener to the "Add New Book" button
+const addBookButton = document.getElementById('add-book-button');
+addBookButton.addEventListener('click', showAddBookForm);
+
 // Add event listener to the "Close" button in the popup form
 const closeButton = document.getElementById('close-form');
 closeButton.addEventListener('click', hideAddBookForm);
+
+
+
+
